@@ -23,7 +23,21 @@
       <a-plane color="#FF0000" width="1" height="1"></a-plane>
     </a-entity>
   </a-scene>
+  <video id="video" autoplay playsinline style="display:none;"></video>
   <script>
+    // Request camera access on page load
+    async function requestCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+        const video = document.getElementById('video');
+        video.srcObject = stream;
+        await video.play();
+      } catch (err) {
+        alert('Camera access is required for AR detection.');
+        console.error('Camera access denied:', err);
+      }
+    }
+
     // Use ONNX Runtime Web to run custom YOLOv8 model
     let session, video, detectedPlane, inputTensor, modelWidth = 640, modelHeight = 640;
     const onnxPath = 'best.onnx';
@@ -31,7 +45,7 @@
     async function setupDetection() {
       // Load ONNX model
       session = await ort.InferenceSession.create(onnxPath);
-      video = document.querySelector('video');
+      video = document.getElementById('video');
       detectedPlane = document.querySelector('#detected-plane');
       detectFrame();
     }
@@ -79,7 +93,8 @@
       requestAnimationFrame(detectFrame);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
+      await requestCamera();
       setTimeout(setupDetection, 2000);
     });
   </script>
