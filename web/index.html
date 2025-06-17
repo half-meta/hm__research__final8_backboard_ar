@@ -23,7 +23,7 @@
       <a-plane color="#FF0000" width="1" height="1"></a-plane>
     </a-entity>
   </a-scene>
-  <video id="video" autoplay playsinline style="display:none;"></video>
+  <video id="video" autoplay playsinline style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0;"></video>
   <script>
     // Request camera access on page load
     async function requestCamera() {
@@ -97,6 +97,8 @@
       await requestCamera();
       setTimeout(setupDetection, 2000);
     });
+    // Move the video element behind the AR scene
+    document.getElementById('ar-scene').style.zIndex = 1;
   </script>
 </body>
 </html>
