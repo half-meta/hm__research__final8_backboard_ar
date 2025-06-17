@@ -1,0 +1,58 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and outputs
+*.log
+*.out
+
+# Python test cache
+.pytest_cache/
+
+# Data and model artifacts (except weights)
+*.h5
+*.ckpt
+*.pb
+*.tflite
+*.pkl
+*.npz
+
+# Node modules (for web)
+node_modules/
+
+# Ignore all files in weights except .onnx and .pt
+weights/*
+!weights/*.onnx
+!weights/*.pt
+
+# Ignore all ONNX and PT files elsewhere
+*.onnx
+*.pt
+
+# Ignore web build outputs except for ONNX model
+web/node_modules/
+web/dist/
+web/build/
+
+# Ignore dataset files
+test/
+train/
+valid/
